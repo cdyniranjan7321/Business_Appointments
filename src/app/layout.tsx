@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Next.js App",
+  title: "Business_Appointments",
   description: "A simple Next.js application with Tailwind CSS",
 };
 
