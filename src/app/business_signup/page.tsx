@@ -2,12 +2,13 @@
 
 import Image from 'next/image';
 import React, { useState } from "react";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai"; // Importing the eye icons
 
 // Declaring and exporting the Signuppage component
 export default function SignupPage() {
 
   const [showPassword, setShowPassword] = useState(false); // Declaring a state to toggle password visibility (false by default)
-
+  
   const togglePasswordVisibility = () => {  //Function to toggle the password visibility
     setShowPassword((prev) => !prev); //Toggling the value of showPassword state
   };
@@ -53,16 +54,17 @@ export default function SignupPage() {
           />
 
           {/* horizontal line */}
-            <hr
-  style={{
-    border: "none",
-    borderTop: "1px solid #808080",
-    width: "100%",
-    margin: "0", // No extra spacing
-  }}
-/>
-  </div>
-  {/* Heading for the signup form */}
+          <hr
+            style={{
+              border: "none",
+              borderTop: "1px solid #808080",
+              width: "100%",
+              margin: "0", // No extra spacing
+            }}
+          />
+        </div>
+        
+        {/* Heading for the signup form */}
         <h1
           style={{
             fontSize: "1.5rem",
@@ -84,12 +86,11 @@ export default function SignupPage() {
           contracts required.
         </p>
 
-
         {/* Signup form */}
         <form>
           <div style={{ marginBottom: "16px", textAlign: "left" }}>
             <label
-              htmlFor="email"
+              htmlFor="emailorphone"
               style={{
                 display: "block",
                 fontSize: "0.875rem",
@@ -97,12 +98,11 @@ export default function SignupPage() {
                 marginBottom: "4px",
               }}
             >
-        
             </label>
             <input
-              type="email"
-              id="email"
-              placeholder="Email address"
+              type="email and phone number"
+              id="emailOrphone"
+              placeholder="Email address or Phone number"
               style={{
                 width: "100%",
                 padding: "10px",
@@ -110,6 +110,8 @@ export default function SignupPage() {
                 borderRadius: "4px",
                 fontSize: "1rem",
               }}
+              pattern="(^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$)|(^\+?[1-9]\d{1,14}$)" // Pattern for email or phone number
+              title="Enter a valid email address or phone number"
             />
           </div>
 
@@ -157,44 +159,17 @@ export default function SignupPage() {
                 border: "none", // No border
                 cursor: "pointer", // Pointer cursor on hover
                 color: "#007bff", // Button text color
-                fontSize: "0.875rem", // Button text size
+                fontSize: "1.25rem", // Button text size for icon
               }}
             >
               {showPassword ? (
-                 <span>Hide </span> // Text for showing password
-                ) : (
-                  <span>Show</span> // Text for hiding password
+                <AiFillEyeInvisible /> // Eye icon to hide password
+              ) : (
+                <AiFillEye /> // Eye icon to show password
               )}
             </button>
           </div>
-          <div style={{ marginBottom: "16px", textAlign: "left" }}>
-          <label
-              htmlFor="locale" // For locale dropdown
-              style={{
-                display: "block", // Block display for label
-                fontSize: "0.875rem", // Label font size
-                color: "#333333", // Label color
-                marginBottom: "4px", // Bottom margin
-              }}
-            >
-              Locale
-            </label>
-            <select
-              id="locale" // Select element id
-              style={{
-                width: "100%", // Full width
-                padding: "10px", // Padding inside select
-                border: "1px solid #ccc", // Border styling
-                borderRadius: "4px", // Rounded corners
-                fontSize: "1rem", // Font size
-              }}
-            >
-              <option>United States (English)</option>
-              <option>United Kingdom (English)</option>
-              <option>India (English)</option>
-            </select>
-          </div>
-
+          
           {/* Terms & conditions checkbox */}
           <div
             style={{
@@ -214,8 +189,7 @@ export default function SignupPage() {
               style={{ fontSize: "0.875rem", color: "#333333" }}
             >
               I agree to Calenify&apos;s{" "}
-
-               {/* Link to terms of service */}
+              {/* Link to terms of service */}
               <a
                 href="#"
                 style={{ color: "#007bff", textDecoration: "none" }}
@@ -223,7 +197,6 @@ export default function SignupPage() {
                 Terms
               </a>
               ,{" "}
-
               {/* Link to privacy policy */}
               <a
                 href="#"
@@ -232,7 +205,6 @@ export default function SignupPage() {
                 Privacy Policy
               </a>
               , and{" "}
-
               {/* Link to e-sign consent */}
               <a
                 href="#"
