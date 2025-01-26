@@ -18,6 +18,15 @@
     font-weight: 400;
 }
 
+@font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url("../../public/fonts/Roboto-Regular.ttf");
+    font-family: "Roboto";
+    font-weight: 400;
+}
+
+
 .signup-continue {
   @media screen and (min-width: 1600px) {
     height: 100vh !important;
