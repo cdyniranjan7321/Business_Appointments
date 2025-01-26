@@ -37,7 +37,7 @@ export default function SignupPage() {
             alignItems: "center", //centers items horizontally
             border: "1px solid rgba(135, 206, 235, 0.3)", // Sky blue border with 30% opacity
             borderRadius: "8px", //rounded corners for the container
-           backgroundColor: "rgba(135, 206, 235, 0.3)", // sky blue background with 100% opacity
+            backgroundColor: "rgba(135, 206, 235, 0.3)", // sky blue background with 100% opacity
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // shadow for 3D effect
         }}
       >
@@ -70,7 +70,7 @@ export default function SignupPage() {
             marginBottom: "8px",
             color: "#333333",
           }}
-        >
+        > 
           Let’s create your account.
         </h1>
         <p
