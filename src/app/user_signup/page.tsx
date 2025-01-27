@@ -2,7 +2,9 @@
 
 import React, { useState } from "react";
 import Image from "next/image"; 
-import { FiEye, FiEyeOff } from "react-icons/fi"; 
+import { FiEye, FiEyeOff } from "react-icons/fi";
+
+
 
 const UserSignup = () => {
   const [form, setForm] = useState({
