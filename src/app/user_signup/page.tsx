@@ -38,7 +38,7 @@ const UserSignup = () => {
   };
 
   const validateForm = () => {
-    let errors = {};
+    const errors = {};
     // Email validation (simple regex)
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(form.email)) {
@@ -60,7 +60,7 @@ const UserSignup = () => {
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (validateForm()) {
       console.log("Form submitted", form);
