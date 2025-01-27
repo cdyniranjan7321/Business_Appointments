@@ -1,3 +1,80 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@font-face {
+    font-family: "Alexandria";
+    src: url("../../public/fonts/Alexandria-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url("../../public/fonts/RobotoFlex-Regular.ttf");
+    font-family: "Roboto Flex";
+    font-weight: 400;
+}
+
+@font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url("../../public/fonts/Roboto-Regular.ttf");
+    font-family: "Roboto";
+    font-weight: 400;
+}
+
+
+.signup-continue {
+  @media screen and (min-width: 1600px) {
+    height: 100vh !important;
+    
+  }
+}
+
+
+.tooltip {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    transform: translateY(-0.5rem);
+    background: #6c757d;
+    color: #fff;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
+    font-size: 0.9rem;
+    line-height: 1.3rem;
+    max-width: 310px;
+    z-index: 10;
+    text-align: left;
+  }
+  
+  .tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 1rem;
+    border-width: 0.5rem;
+    border-style: solid;
+    border-color: #6c757d transparent transparent transparent;
+  }
+  
+  .info-icon:hover + .tooltip,
+  .info-icon:focus + .tooltip {
+    display: block;
+  }
+  
+
+  .business-signup__dropdown--type option, .dropdown--province option, .dropdown--district option, .dropdown--city option {
+    color: #333333;
+  }
+
+  /* For the disabled placeholder option */
+.business-signup__dropdown--type option:disabled, .dropdown--province option:disabled, .dropdown--district option:disabled, .dropdown--city option:disabled {
+  color: #808080; /* Color for disabled placeholder */
+}
+  
