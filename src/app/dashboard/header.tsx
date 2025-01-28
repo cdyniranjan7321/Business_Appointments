@@ -124,7 +124,7 @@ const Header = () => {
 
             {/* Center Section: Logo */}
             <div style={{
-                flexGrow: 1,
+                flexGrow: 1.25,
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
