@@ -1,12 +1,8 @@
-import React from "react";
-import Header from "./header";
+'use client';
 
-import {
-  FiCalendar,
-  FiShoppingBag,
-  FiHelpCircle,
-} from "react-icons/fi";
-
+import React, { useState, useEffect } from "react";
+import Header from "./Header";
+import { FiCalendar, FiShoppingBag,FiHelpCircle,} from "react-icons/fi";
 import { HiOutlineSpeakerphone } from "react-icons/hi";
 import { SlHome } from "react-icons/sl";
 import { FaAd } from "react-icons/fa";
@@ -16,7 +12,25 @@ import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { FcPlanner } from "react-icons/fc";
 import { IoSettingsOutline } from "react-icons/io5";
-import { HiOutlineUserCircle } from "react-icons/hi2";
+import { MdOutlineClear } from "react-icons/md";
+
+const defaultItems = [
+  { icon: SlHome, label: "Home" },
+  { icon: IoSettingsOutline, label: "Settings" },
+  { icon: FiHelpCircle, label: "Help" },
+];
+
+const optionalItems = [
+  { icon: FiCalendar, label: "Appointment" },
+  { icon: FiShoppingBag, label: "Products" },
+  { icon: HiOutlineSpeakerphone, label: "Marketing Suite" },
+  { icon: FaAd, label: "Social & Ads" },
+  { icon: PiFolderSimpleUserDuotone, label: "Manage" },
+  { icon: BiBarChartSquare, label: "Reports" },
+  { icon: FaMoneyBillTransfer, label: "Payments" },
+  { icon: MdOutlineDashboardCustomize, label: "Custom Features" },
+  { icon: FcPlanner, label: "Plan & Price" },
+];
 
 const SidebarItem = ({ icon: Icon, label }) => (
   <div className="flex items-center space-x-2 p-3 rounded-l-3xl cursor-pointer bg-transparent hover:bg-[#f0f8ff] hover:ml-2 transition-all duration-300 group">
@@ -27,53 +41,108 @@ const SidebarItem = ({ icon: Icon, label }) => (
   </div>
 );
 
-
 const Dashboard = () => {
-  const menuItems = [
-    { icon: SlHome, label: "Home" },
-    { icon: FiCalendar, label: "Appointment" },
-    { icon: FiShoppingBag, label: "Products" },
-    { icon: HiOutlineSpeakerphone, label: "Marketing Suite" },
-    { icon: FaAd, label: "Social & Ads" },
-    { icon: PiFolderSimpleUserDuotone, label: "Manage" },
-    { icon: BiBarChartSquare, label: "Reports" },
-    { icon: FaMoneyBillTransfer, label: "Payments" },
-    { icon: MdOutlineDashboardCustomize, label: "Custom Features" },
-    { icon: FcPlanner, label: "Plan & Price" },
-    { icon: IoSettingsOutline, label: "Settings" },
-    { icon: FiHelpCircle, label: "Help" },
-  ];
+  const [sidebarItems, setSidebarItems] = useState([...defaultItems]);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedItems = JSON.parse(localStorage.getItem("sidebarItems")) || [];
+      setSidebarItems([...defaultItems, ...savedItems]);
+    }
+  }, []);
+
+  const togglePopup = () => {
+    setIsPopupOpen(!isPopupOpen);
+  };
+
+  const saveSidebarSelection = () => {
+    const selectedItems = Array.from(
+      document.querySelectorAll(".sidebar-option:checked")
+    ).map((checkbox) =>
+      optionalItems.find((item) => item.label === (checkbox as HTMLInputElement).value)
+    );
+
+    if (typeof window !== "undefined") {
+      localStorage.setItem("sidebarItems", JSON.stringify(selectedItems));
+      setSidebarItems([...defaultItems, ...selectedItems]);
+    }
+    togglePopup();
+  };
+
+  const toggleSidebar = () => {
+    setIsSidebarVisible(!isSidebarVisible);
+  };
 
   return (
     <div className="h-screen flex flex-col">
-      {/* Header */}
-      <Header />
-
-      {/* Main Content */}
+      <Header toggleSidebar={toggleSidebar} />
       <div className="flex flex-1">
-        {/* Sidebar */}
-        <aside className="w-64 bg-[#6FB434] shadow-md h-full flex flex-col">
-          <div className="p-4 text-xl font-bold text-center text-white border-b border-[#5D9C2F]">
-            Dashboard
-          </div>
-          <nav className="flex-grow space-y-1 overflow-auto">
-            {menuItems.map((item, index) => (
-              <SidebarItem key={index} icon={item.icon} label={item.label} />
-            ))}
-            {/* Separator Line */}
-            <div className="border-b border-white mx-4 my-2"></div>
-            {/* Bytesoft Nepal Item */}
-            <SidebarItem icon={HiOutlineUserCircle} label="Bytesoft Nepal" />
-          </nav>
-        </aside>
+        {isSidebarVisible && (
+          <aside className="w-64 bg-[#6FB434] shadow-md h-full flex flex-col">
+            <div className="p-4 flex justify-between items-center text-xl font-bold text-white border-b border-[#5D9C2F]">
+              <span>Tools</span>
+              <button
+                onClick={togglePopup}
+                className="text-sm bg-white text-[#6FB434] px-3 py-1 rounded-lg hover:bg-gray-200"
+              >
+                Edit
+              </button>
+            </div>
+            <nav className="flex-grow space-y-1 overflow-auto">
+              {sidebarItems.map((item, index) => (
+                <SidebarItem key={index} icon={item.icon} label={item.label} />
+              ))}
+            </nav>
+          </aside>
+        )}
 
-        {/* Main Content Area */}
-        <main className="flex-1 bg-[#f0f8ff] p-6">
-          <h1 className="text-2xl font-semibold text-gray-800">
-            Welcome to the Dashboard
-          </h1>
+        <main className="flex flex-1 justify-center items-center text-center bg-[#f0f8ff]">
+          <h1 className="text-3xl font-semibold text-gray-800 mb-1">Welcome to the Dashboard</h1>
+          <p className="text-lg text-gray-600">Explore our dashboard using Edit option for more details.</p>
         </main>
       </div>
+
+      {isPopupOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-[#F0F8FF] p-6 rounded-lg shadow-lg w-[90%] md:w-150 max-w-lg mx-auto relative h-[60vh] flex flex-col">
+            <div className="flex justify-between items-center mb-4">
+              <button
+                onClick={togglePopup}
+                className="px-3 py-1 bg-gray-300 rounded-lg hover:bg-gray-400"
+              >
+                <MdOutlineClear />
+              </button>
+            </div>
+            <h2 className="text-xl font-bold text-left mb-4">Edit Navigation</h2>
+            <div className="flex-grow overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
+              {optionalItems.map((item, index) => (
+                <label key={index} className="flex justify-between items-center p-2 border-b">
+                  <div className="flex items-center space-x-2">
+                    <item.icon className="w-5 h-5 text-gray-600" />
+                    <span>{item.label}</span>
+                  </div>
+                  <input
+                    type="checkbox"
+                    value={item.label}
+                    className="sidebar-option"
+                    defaultChecked={sidebarItems.some((s) => s.label === item.label)}
+                  />
+                </label>
+              ))}
+            </div>
+            <div className="absolute top-4 right-4">
+              <button
+                onClick={saveSidebarSelection}
+                className="px-3 py-1 bg-[#6FB434] text-white rounded-lg hover:bg-green-700"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
