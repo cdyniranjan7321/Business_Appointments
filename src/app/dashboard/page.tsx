@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
-import { FiCalendar, FiShoppingBag,FiHelpCircle,} from "react-icons/fi";
+import { FiCalendar, FiShoppingBag, FiHelpCircle } from "react-icons/fi";
 import { HiOutlineSpeakerphone } from "react-icons/hi";
-import { SlHome } from "react-icons/sl";
+import { SlHome } from "react-icons/sl"; // Home
 import { FaAd } from "react-icons/fa";
 import { PiFolderSimpleUserDuotone } from "react-icons/pi";
 import { BiBarChartSquare } from "react-icons/bi";
@@ -32,10 +32,18 @@ const optionalItems = [
   { icon: FcPlanner, label: "Plan & Price" },
 ];
 
-const SidebarItem = ({ icon: Icon, label }) => (
-  <div className="flex items-center space-x-2 p-3 rounded-l-3xl cursor-pointer bg-transparent hover:bg-[#f0f8ff] hover:ml-2 transition-all duration-300 group">
+const SidebarItem = ({ icon: Icon, label, isSelectable = true }) => (
+  <div
+    className={`flex items-center space-x-2 p-3 rounded-l-3xl cursor-pointer bg-transparent hover:bg-[#f0f8ff] hover:ml-2 transition-all duration-300 group ${
+      !isSelectable && 'opacity-50 cursor-not-allowed text-black'
+    }`}
+  >
     {Icon && <Icon className="w-5 h-5 text-white group-hover:text-[#6FB434]" />}
-    <span className="text-white text-sm font-medium group-hover:text-[#6FB434] group-hover:font-bold group-hover:text-[15px]">
+    <span
+      className={`${
+        !isSelectable ? 'text-black' : 'text-white'
+      } text-sm font-medium group-hover:text-[#6FB434] group-hover:font-bold group-hover:text-[15px]`}
+    >
       {label}
     </span>
   </div>
@@ -131,6 +139,12 @@ const Dashboard = () => {
                   />
                 </label>
               ))}
+              <div className="mt-4">
+                <h3 className="text-lg font-bold">Default Items (Non-Selectable)</h3>
+                {defaultItems.map((item, index) => (
+                  <SidebarItem key={index} icon={item.icon} label={item.label} isSelectable={false} />
+                ))}
+              </div>
             </div>
             <div className="absolute top-4 right-4">
               <button
