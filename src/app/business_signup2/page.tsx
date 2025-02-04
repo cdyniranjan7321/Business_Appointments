@@ -1275,26 +1275,32 @@ const BusinessSignup = () => {
               border: "none",
             }}
           />
-          <button
-            style={{
-              color: "#ffffff",
-              marginTop: "2.25rem",
-              marginLeft: "6rem",
-              paddingLeft: "2.13rem",
-              paddingRight: "2.13rem",
-              letterSpacing: "0rem",
-              fontSize: "1.25rem",
-              fontWeight: 600,
-              alignSelf: "flex-start",
-              backgroundColor: "#6fb434",
-              boxShadow: "0 4px 4px 0 #0000003f",
-              height: "3rem",
-              minWidth: "30.88rem",
-              borderRadius: "5px",
-            }}
-          >
-            Continue
-          </button>
+         <a
+  href="/dashboard"
+  style={{
+    color: "#ffffff",
+    marginTop: "2.25rem",
+    marginLeft: "6rem",
+    paddingLeft: "2.13rem",
+    paddingRight: "2.13rem",
+    letterSpacing: "0rem",
+    fontSize: "1.25rem",
+    fontWeight: 600,
+    alignSelf: "flex-start",
+    backgroundColor: "#6fb434",
+    boxShadow: "0 4px 4px 0 #0000003f",
+    height: "3rem",
+    minWidth: "30.88rem",
+    borderRadius: "5px",
+    display: "inline-block",
+    textAlign: "center",
+    lineHeight: "3rem", // Ensures text is vertically centered
+    textDecoration: "none", // Removes underline
+  }}
+>
+  Continue
+</a>
+
 
       </div>
     </div>
