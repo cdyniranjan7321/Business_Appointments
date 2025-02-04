@@ -215,21 +215,25 @@ export default function SignupPage() {
               .
             </label>
           </div>
-          <button
-            type="submit"
-            style={{
-              width: "100%",
-              padding: "12px",
-              backgroundColor: "#28a745",
-              color: "#ffffff",
-              border: "none",
-              borderRadius: "4px",
-              fontSize: "1rem",
-              cursor: "pointer",
-            }}
-          >
-            Continue
-          </button>
+
+             {/* Updated Continue button */}
+             <a
+                 href="/business_signup2"
+                      style={{
+                                width: "100%",
+                                display: "block", // Ensures it takes the full width
+                                textAlign: "center",
+                                padding: "12px",
+                                backgroundColor: "#28a745",
+                                color: "#ffffff",
+                                borderRadius: "4px",
+                                fontSize: "1rem",
+                                cursor: "pointer",
+                                textDecoration: "none",
+                              }}
+                                 >
+                                    Continue
+            </a>
         </form>
         <p
           style={{
