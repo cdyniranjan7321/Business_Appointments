@@ -1,10 +1,11 @@
 'use client';
 
+
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import { FiCalendar, FiShoppingBag, FiHelpCircle } from "react-icons/fi";
 import { HiOutlineSpeakerphone } from "react-icons/hi";
-import { SlHome } from "react-icons/sl"; // Home
+import { SlHome } from "react-icons/sl";
 import { FaAd } from "react-icons/fa";
 import { PiFolderSimpleUserDuotone } from "react-icons/pi";
 import { BiBarChartSquare } from "react-icons/bi";
@@ -35,13 +36,13 @@ const optionalItems = [
 const SidebarItem = ({ icon: Icon, label, isSelectable = true }) => (
   <div
     className={`flex items-center space-x-2 p-3 rounded-l-3xl cursor-pointer bg-transparent hover:bg-[#f0f8ff] hover:ml-2 transition-all duration-300 group ${
-      !isSelectable && 'opacity-50 cursor-not-allowed text-black'
+      !isSelectable && "opacity-50 cursor-not-allowed text-black"
     }`}
   >
     {Icon && <Icon className="w-5 h-5 text-white group-hover:text-[#6FB434]" />}
     <span
       className={`${
-        !isSelectable ? 'text-black' : 'text-white'
+        !isSelectable ? "text-black" : "text-white"
       } text-sm font-medium group-hover:text-[#6FB434] group-hover:font-bold group-hover:text-[15px]`}
     >
       {label}
@@ -53,11 +54,19 @@ const Dashboard = () => {
   const [sidebarItems, setSidebarItems] = useState([...defaultItems]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+  const [showNotification, setShowNotification] = useState(true);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const savedItems = JSON.parse(localStorage.getItem("sidebarItems")) || [];
       setSidebarItems([...defaultItems, ...savedItems]);
+
+      // Hide notification after 5 seconds
+      const timer = setTimeout(() => {
+        setShowNotification(false);
+      }, 5000);
+
+      return () => clearTimeout(timer);
     }
   }, []);
 
@@ -69,7 +78,9 @@ const Dashboard = () => {
     const selectedItems = Array.from(
       document.querySelectorAll(".sidebar-option:checked")
     ).map((checkbox) =>
-      optionalItems.find((item) => item.label === (checkbox as HTMLInputElement).value)
+      optionalItems.find(
+        (item) => item.label === (checkbox as HTMLInputElement).value
+      )
     );
 
     if (typeof window !== "undefined") {
@@ -108,9 +119,25 @@ const Dashboard = () => {
 
         <main className="flex flex-1 justify-center items-center text-center bg-[#f0f8ff]">
           <h1 className="text-3xl font-semibold text-gray-800 mb-1">Welcome to the Dashboard</h1>
-          <p className="text-lg text-gray-600">Explore our dashboard using Edit option for more details.</p>
+          <p className="text-lg text-gray-600">
+            Explore our dashboard option for more details.
+          </p>
         </main>
       </div>
+
+      {showNotification && (
+  <div className="fixed top-4 right-4 bg-white shadow-lg border border-red-500 rounded-lg p-4 flex items-center space-x-3 text-sm transition-all duration-300 text-red-500">
+    <p>
+      Use the <strong>Edit</strong> button to customize your sidebar components. 
+      
+    </p>
+    <button onClick={() => setShowNotification(false)} className="text-red-500 hover:text-gray-700 transition-colors duration-300">
+      <MdOutlineClear />
+    </button>
+  </div>
+
+)}
+
 
       {isPopupOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
