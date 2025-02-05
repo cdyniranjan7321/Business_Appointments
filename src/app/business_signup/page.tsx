@@ -243,7 +243,7 @@ export default function SignupPage() {
           }}
         >
           Already have a Square account?{" "}
-          <a href="#" style={{ color: "#007bff", textDecoration: "none" }}>
+          <a href="/business_signin" style={{ color: "#007bff", textDecoration: "none" }}>
             Sign in
           </a>
           .
